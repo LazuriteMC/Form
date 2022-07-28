@@ -1,0 +1,70 @@
+plugins {
+	id 'fabric-loom' version "$loom_version"
+	id 'maven-publish'
+	id 'java-library'
+}
+
+group 'dev.lazurite'
+version form_version
+
+repositories {
+	maven { url 'https://lazurite.dev/releases' }
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+}
+
+loom.accessWidenerPath = file 'src/main/resources/form.accesswidener'
+
+dependencies {
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings loom.officialMojangMappings()
+
+	// Fabric
+	modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_api_version"
+
+	// Toolbox
+	modApi "dev.lazurite:toolbox-fabric:$toolbox_version"
+
+	// Gecko Lib 3
+	modApi "software.bernie.geckolib:geckolib-fabric-1.19:$geckolib_version"
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+
+	withSourcesJar()
+}
+
+jar.from 'LICENSE'
+
+tasks.withType ProcessResources, {
+	inputs.property 'version', form_version
+
+	filesMatching 'fabric.mod.json', {
+		expand version: form_version
+	}
+}
+
+publishing {
+	repositories {
+		mavenLocal()
+
+		maven {
+			name 'Lazurite'
+			url 'https://lazurite.dev/releases'
+
+			credentials {
+				username property('publish.lazurite.alias')
+				password property('publish.lazurite.secret')
+			}
+		}
+	}
+
+	publications {
+		form MavenPublication, {
+			from components.java
+		}
+	}
+}

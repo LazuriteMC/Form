@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.lazurite.form.impl.client.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "resource.ClientLanguageMixin",
+    "resource.TextureManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
