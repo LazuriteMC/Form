@@ -17,11 +17,14 @@
   },
   "mixins": [
     {
-      "config": "remote.client.mixins.json",
+      "config": "form.common.mixins.json",
+      "environment": "*"
+    },
+    {
+      "config": "form.client.mixins.json",
       "environment": "client"
     }
   ],
-  "accessWidener" : "form.accesswidener",
   "name": "Form",
   "description": "A library that allows one entity to utilize multiple GeckoLib Geo models.",
   "authors": [ "The Lazurite Team" ],

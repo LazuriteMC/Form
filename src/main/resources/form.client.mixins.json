@@ -4,8 +4,9 @@
   "package": "dev.lazurite.form.impl.client.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "resource.ClientLanguageMixin",
-    "resource.TextureManagerMixin"
+    "ClientLanguageAccess",
+    "ClientLanguageMixin",
+    "TextureManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

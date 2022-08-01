@@ -1,6 +1,6 @@
 package dev.lazurite.form.impl.client.resource;
 
-import dev.lazurite.form.impl.common.template.TemplateLoader;
+import dev.lazurite.form.api.loader.TemplateLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.resources.Resource;
@@ -24,11 +24,11 @@ public class TemplateTextureManager implements ResourceManager {
             return getOriginal().getResource(resourceLocation);
         }
 
-        final var optionalTemplate = TemplateLoader.getTemplate(resourceLocation.getPath());
+        final var optionalTemplate = TemplateLoader.getTemplateById(resourceLocation.getPath());
 
         if (optionalTemplate.isPresent()) {
             final var template = optionalTemplate.get();
-            return Optional.of(new Resource(template.getId(), () -> new ByteArrayInputStream(template.getTexture())));
+            return Optional.of(new Resource(template.getId(), () -> new ByteArrayInputStream(template.texture())));
         } else {
             return original.getResource(resourceLocation);
         }

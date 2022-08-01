@@ -1,4 +1,4 @@
-package dev.lazurite.form.impl.client.mixin.resource;
+package dev.lazurite.form.impl.client.mixin;
 
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.client.resources.language.LanguageInfo;
@@ -25,6 +25,6 @@ public class ClientLanguageMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             cancellable = true)
     private static void loadFrom(ResourceManager resourceManager, List<LanguageInfo> list, CallbackInfoReturnable<ClientLanguage> info, Map<String, String> map, boolean bl) {
-        info.setReturnValue(new ClientLanguage(map, bl));
+        info.setReturnValue(ClientLanguageAccess.newClientLanguage(map, bl));
     }
 }

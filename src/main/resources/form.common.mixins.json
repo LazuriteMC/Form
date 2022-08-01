@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.lazurite.form.impl.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "EntityAccess",
+    "EntityMixin",
+    "ItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

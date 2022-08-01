@@ -1,4 +1,4 @@
-package dev.lazurite.form.impl.client.mixin.resource;
+package dev.lazurite.form.impl.client.mixin;
 
 import dev.lazurite.form.impl.client.resource.TemplateTextureManager;
 import dev.lazurite.form.impl.common.Form;

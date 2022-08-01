@@ -2,8 +2,9 @@ package dev.lazurite.form.impl.common.template.util;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import dev.lazurite.form.impl.client.mixin.ClientLanguageAccess;
 import dev.lazurite.form.impl.common.Form;
-import dev.lazurite.form.impl.common.template.TemplateLoader;
+import dev.lazurite.form.api.loader.TemplateLoader;
 import dev.lazurite.form.impl.common.template.model.Template;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.Minecraft;
@@ -40,9 +41,9 @@ public class TemplateResourceLoader implements SimpleSynchronousResourceReloadLi
     public void load(Template template) {
         final var identifier = new ResourceLocation(Form.MODID, template.getId());
 
-        loadGeo(identifier, template.getGeo());
-        loadAnimation(identifier, template.getAnimation());
-        loadLang(template.getId(), template.getSettings().getName());
+        loadGeo(identifier, template.geo());
+        loadAnimation(identifier, template.animation());
+        loadLang(template.getId(), template.getName());
         Minecraft.getInstance().getTextureManager().register(identifier, new SimpleTexture(identifier));
     }
 
@@ -95,7 +96,7 @@ public class TemplateResourceLoader implements SimpleSynchronousResourceReloadLi
      */
     private void loadLang(String id, String name) {
         if (Language.getInstance() instanceof ClientLanguage) {
-            ((ClientLanguage) Language.getInstance()).storage.put("template." + Form.MODID + "." + id, name);
+            ((ClientLanguageAccess) Language.getInstance()).getStorage().put("template." + Form.MODID + "." + id, name);
         }
     }
 
