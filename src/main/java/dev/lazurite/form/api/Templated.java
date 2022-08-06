@@ -8,6 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Optional;
 
 public interface Templated {
+    interface Item { }
+
     static Optional<Template> find(String template) {
         return TemplateLoader.getTemplateById(template);
     }

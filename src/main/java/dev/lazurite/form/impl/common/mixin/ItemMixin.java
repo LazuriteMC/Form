@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemMixin {
     @Inject(method = "getDescriptionId(Lnet/minecraft/world/item/ItemStack;)Ljava/lang/String;", at = @At("RETURN"), cancellable = true)
     public void getDescriptionId_RETURN(ItemStack itemStack, CallbackInfoReturnable<String> info) {
-        // TODO this might be bad
-        info.setReturnValue("template." + Form.MODID + "." + Templated.get(itemStack).getTemplate());
+        if (itemStack.getItem() instanceof Templated.Item) {
+            info.setReturnValue("template." + Form.MODID + "." + Templated.get(itemStack).getTemplate());
+        }
     }
 }
