@@ -3,16 +3,16 @@ package dev.lazurite.form.impl.client.render.model;
 import dev.lazurite.form.api.Templated;
 import dev.lazurite.form.impl.common.Form;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.model.GeoModel;
 
 /**
  * This class dynamically provides a {@link Templated} model
  * based on which template it is assigned. It also caches the {@link GeoModel} object.
  */
-public class TemplatedModel<T extends Templated & IAnimatable> extends AnimatedGeoModel<T> {
-    private GeoModel cachedModel;
+public class TemplatedModel<T extends Templated & GeoAnimatable> extends GeoModel<T> {
+    private BakedGeoModel cachedModel;
 
     @Override
     public ResourceLocation getModelResource(T remoteControllableEntity) {
@@ -30,8 +30,8 @@ public class TemplatedModel<T extends Templated & IAnimatable> extends AnimatedG
     }
 
     @Override
-    public GeoModel getModel(ResourceLocation resourceLocation) {
-        final var model = super.getModel(resourceLocation);
+    public BakedGeoModel getBakedModel(ResourceLocation resourceLocation) {
+        final var model = super.getBakedModel(resourceLocation);
 
         if (model != null) {
             cachedModel = model;

@@ -13,9 +13,11 @@ import java.util.stream.Stream;
 
 public class TemplateTextureManager implements ResourceManager {
     private final ResourceManager original;
+    private final FormPackResources resources;
 
     public TemplateTextureManager(ResourceManager original) {
         this.original = original;
+        this.resources = new FormPackResources();
     }
 
     @Override
@@ -24,14 +26,9 @@ public class TemplateTextureManager implements ResourceManager {
             return getOriginal().getResource(resourceLocation);
         }
 
-        final var optionalTemplate = TemplateLoader.getTemplateById(resourceLocation.getPath());
-
-        if (optionalTemplate.isPresent()) {
-            final var template = optionalTemplate.get();
-            return Optional.of(new Resource(template.getId(), () -> new ByteArrayInputStream(template.texture())));
-        } else {
-            return original.getResource(resourceLocation);
-        }
+        return TemplateLoader.getTemplateById(resourceLocation.getPath())
+                .map(template -> new Resource(this.resources, () -> new ByteArrayInputStream(template.texture())))
+                .or(() -> original.getResource(resourceLocation));
     }
 
     // We don't use anything below here...
