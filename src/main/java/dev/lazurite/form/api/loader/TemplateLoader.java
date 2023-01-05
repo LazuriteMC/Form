@@ -3,6 +3,7 @@ package dev.lazurite.form.api.loader;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.lazurite.form.api.Templated;
+import dev.lazurite.form.api.event.TemplateEvents;
 import dev.lazurite.form.impl.common.Form;
 import dev.lazurite.form.impl.common.template.model.Template;
 import net.fabricmc.api.EnvType;
@@ -54,6 +55,7 @@ public interface TemplateLoader {
         if (!TEMPLATES.containsKey(id) || (TEMPLATES.containsKey(id) && !loaded.equals(template))) {
             Form.LOGGER.info("Loading {} template...", template.getId());
             TEMPLATES.put(new ResourceLocation(template.getModId(), template.getId()), template);
+            TemplateEvents.TEMPLATE_LOADED.invoke(template);
         } else {
             Form.LOGGER.info("{} template already exists! Skipping...", template.getId());
         }
