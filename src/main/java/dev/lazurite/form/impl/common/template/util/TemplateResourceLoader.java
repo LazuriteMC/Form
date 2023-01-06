@@ -39,7 +39,7 @@ public class TemplateResourceLoader implements SimpleSynchronousResourceReloadLi
 
         loadGeo(identifier, template.geo());
         loadAnimation(identifier, template.animation());
-        loadLang(template.getId(), template.getName());
+        loadLang(template.getModId(), template.getId(), template.getName());
         Minecraft.getInstance().getTextureManager().register(identifier, new SimpleTexture(identifier));
     }
 
@@ -81,9 +81,9 @@ public class TemplateResourceLoader implements SimpleSynchronousResourceReloadLi
      * @param id the id of the template
      * @param name the actual name
      */
-    private void loadLang(String id, String name) {
+    private void loadLang(String modid, String id, String name) {
         if (Language.getInstance() instanceof ClientLanguage) {
-            ((ClientLanguageAccess) Language.getInstance()).getStorage().put("template." + Form.MODID + "." + id, name);
+            ((ClientLanguageAccess) Language.getInstance()).getStorage().put("template." + modid + "." + id, name);
         }
     }
 
