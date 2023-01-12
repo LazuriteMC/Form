@@ -6,6 +6,7 @@
   "client": [
     "ClientLanguageAccess",
     "ClientLanguageMixin",
+    "ItemRendererMixin",
     "TextureManagerMixin"
   ],
   "injectors": {

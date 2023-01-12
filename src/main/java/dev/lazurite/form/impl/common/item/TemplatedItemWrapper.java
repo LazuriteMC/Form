@@ -8,13 +8,11 @@ import net.minecraft.world.item.ItemStack;
  * Stores all relevant template information available via {@link Templated}
  * @see Templated
  */
-public class TemplatedItemStack implements Templated {
-    private final ItemStack stack;
+public class TemplatedItemWrapper implements Templated {
     private final CompoundTag tag;
 
-    public TemplatedItemStack(ItemStack stack) {
-        this.stack = stack;
-        this.tag = this.stack.getOrCreateTagElement("templated");
+    public TemplatedItemWrapper(ItemStack stack) {
+        this.tag = stack.getOrCreateTagElement("templated");
     }
 
     @Override
@@ -29,7 +27,7 @@ public class TemplatedItemStack implements Templated {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof final TemplatedItemStack template) {
+        if (obj instanceof final TemplatedItemWrapper template) {
             return getTemplate().equals(template.getTemplate());
         }
 
