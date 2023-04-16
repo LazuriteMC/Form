@@ -5,8 +5,8 @@ plugins {
 	id 'io.github.juuxel.loom-quiltflower' version '1.7.2'
 }
 
-group 'dev.lazurite'
-version form_version
+group maven_group
+version mod_version
 
 repositories {
 	maven { url 'https://lazurite.dev/releases' }
@@ -25,7 +25,7 @@ dependencies {
 	modApi "dev.lazurite:toolbox-fabric:$toolbox_version"
 
 	// Gecko Lib 4
-	modApi "software.bernie.geckolib:geckolib-fabric-1.19.3:$geckolib_version"
+	modApi "software.bernie.geckolib:geckolib-fabric-$minecraft_version:$geckolib_version"
 }
 
 java {
@@ -39,24 +39,21 @@ java {
 jar.from 'LICENSE'
 
 tasks.withType ProcessResources, {
-	inputs.property 'version', form_version
+	inputs.property 'version', mod_version
 
 	filesMatching 'fabric.mod.json', {
-		expand version: form_version
+		expand version: mod_version
 	}
 }
 
 publishing {
-	if (hasProperty('publish.lazurite.alias') && hasProperty('publish.lazurite.secret')) {
-		repositories {
-			maven {
-				name 'Lazurite'
-				url 'https://lazurite.dev/releases'
-
-				credentials {
-					username property('publish.lazurite.alias')
-					password property('publish.lazurite.secret')
-				}
+	repositories {
+		maven {
+			name 'Lazurite'
+			url 'https://lazurite.dev/releases'
+			credentials(PasswordCredentials)
+			authentication {
+				register("basic", BasicAuthentication)
 			}
 		}
 	}

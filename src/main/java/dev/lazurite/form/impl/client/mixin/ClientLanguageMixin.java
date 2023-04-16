@@ -1,7 +1,6 @@
 package dev.lazurite.form.impl.client.mixin;
 
 import net.minecraft.client.resources.language.ClientLanguage;
-import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,8 +22,9 @@ public class ClientLanguageMixin {
             method = "loadFrom",
             at = @At("RETURN"),
             locals = LocalCapture.CAPTURE_FAILHARD,
-            cancellable = true)
-    private static void loadFrom(ResourceManager resourceManager, List<LanguageInfo> list, CallbackInfoReturnable<ClientLanguage> info, Map<String, String> map, boolean bl) {
-        info.setReturnValue(ClientLanguageAccess.newClientLanguage(map, bl));
+            cancellable = true
+    )
+    private static void loadFrom(ResourceManager resourceManager, List<String> list, boolean bl, CallbackInfoReturnable<ClientLanguage> cir, Map<String, String> map) {
+        cir.setReturnValue(ClientLanguageAccess.newClientLanguage(map, bl));
     }
 }
