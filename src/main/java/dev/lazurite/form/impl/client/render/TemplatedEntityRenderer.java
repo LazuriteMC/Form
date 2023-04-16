@@ -13,7 +13,11 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public abstract class TemplatedEntityRenderer<T extends LivingEntity & Templated & GeoAnimatable> extends GeoEntityRenderer<T> {
 
     public TemplatedEntityRenderer(EntityRendererProvider.Context ctx) {
-        super(ctx, new TemplatedModel<>());
+        this(ctx, new TemplatedModel<>());
+    }
+
+    public TemplatedEntityRenderer(EntityRendererProvider.Context ctx, TemplatedModel<T> model) {
+        super(ctx, model);
     }
 
     @Override
